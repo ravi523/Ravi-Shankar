@@ -1,0 +1,54 @@
+How to Identidfy Challenge Collapsar (CC) attack ?
+	Compared with other types of DDoS attacks, a Challenge Collapsar (CC) attack is much more complicated as it 
+	   has many variants making its prevention difficult.
+	when an attack occurs, multiple requests disguised as valid HTTP requests target flawed web applications 
+	   simultaneously — exhausting the web server resources.
+	Using real-time threat intelligence and user behavior algorithms, we can quickly distinguish between 
+	  regular business traffic and malicious traffic to prevent such vicious attacks.
+	
+How to Stop Identidfy Challenge Collapsar (CC) attack ?
+    We deploy multiple protection strategies to prevent common web servers vulnerability attacks, 
+	   such as XSS attacks and illegal HTTP protocol requests.
+	We defend against SQL injection, LDAP injection, command injection (such as OS commands, web shell, etc.), 
+	   XPath injection, XML / JSON injection, and more. 
+	We can do whitelisting of specific IPs and blocking of malicious IPs.
+	blacklisting and whitelisting of URLs.
+
+How to Identidfy (S)SYN flood ?
+    Detecting SYN flood Attack The generic symptom of SYN Flood attack to a web site visitor is that a 
+	  site takes a long time to load, or loads some elements of a page but not others. 
+	   If you suspect a SYN Flood attack on a web server, you can use netstat command to check the web 
+	   server connection requests that are in “SYN_RECEIVED” state.
+	which an attacker sends a progression of SYN requests to an objective’s framework  
+	    consume enough server assets to make the framework inert to authentic activity.
+
+How to Stop (S)SYN flood ?
+	Using SYN cookies
+        This is the most effective method of defending from SYN Flood attack. The use of SYN cookies allow a server to avoid dropping
+		 connections when the SYN queue fills up. Instead, the server behaves as if the SYN queue has been enlarged. The server 
+		 sends back the appropriate SYN+ACK response to the client but discards the SYN queue entry. If the server then receives a 
+		 subsequent ACK response from the client, it is able to reconstruct the SYN queue entry using information encoded in the TCP sequence number.
+         
+		 SYN cookies can be enabled by adding the following to /etc/sysctl.conf
+			net.ipv4.tcp_syncookies = 1
+	
+	Increasing the SYN backlog queue
+		An optional defending technique is to increase the SYS backlog queue size. The default size is 1024. 
+		 This can be done by adding the following to /etc/sysctl.conf
+
+		net.ipv4.tcp_max_syn_backlog = 2048
+	
+	Reducing SYN_ACK retries
+		Tweaking the kernel parameter tcp_synack_retries causes the kernel to close the SYN_RECV state connections earlier. Default value is 5.
+		net.ipv4.tcp_synack_retries = 3
+ 
+	Setting SYN_RECV timeout
+		Lowering the timeout value for SYN_RECV will help in reducing the SYN flood attack. 
+		 The default value is 60 and we can reduce it to 40 or 45. This can be done by adding the following line to sysctl.conf.
+
+		net.ipv4.netfilter.ip_conntrack_tcp_timeout_syn_recv=45 
+		
+	Preventing IP spoofing
+		The following sysctl parameter will help to protect against IP spoofing which is used for SYN flood attacks.
+
+		net.ipv4.conf.all.rp_filter = 1
