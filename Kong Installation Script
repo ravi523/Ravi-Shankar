@@ -1,0 +1,33 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Download file from a site
+         get_url:
+          url: https://download.konghq.com/gateway-2.x-ubuntu-$(lsb_release -cs)/pool/all/k/kong/kong_2.7.1.0_amd64.deb
+          dest: /
+	- name: Install Package
+		path: /
+		 dpkg:
+		   name: kong_2.7.1.0_amd64.deb
+		   state: latest
+	- name: generating kong.yaml file
+		command:
+			 cmd: kong config init
+	- name: editing kong.yaml file
+		replace:
+            path: /etc/init/kong.conf
+            regexp: '#(\s+)database='
+			line: database= off
+			path: /etc/init/kong.conf
+			regexp: '#(\s+)declarative_config:'
+			line:  declarative_config: /home/ubuntu/kong.yml
+	- name: starting kong service
+		service:
+			name: httpd
+			state: started
+	-  name: checking kong status
+		command:
+			 cmd: curl -i http://localhost:8001
+			 
+	- debug: var=service_output
