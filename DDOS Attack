@@ -51,4 +51,4 @@ How to Stop (S)SYN flood ?
 	Preventing IP spoofing
 		The following sysctl parameter will help to protect against IP spoofing which is used for SYN flood attacks.
 
-		net.ipv4.conf.all.rp_filter = 1
+		net.ipv4.conf.all.rp_filter = 1 
